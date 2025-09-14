@@ -10,7 +10,7 @@ export const DATA = {
   description:
       "Backend Developer",
   summary:
-      "A web developer with skills in Django, Python, and Rest Django (DRF) Framework and over a year of experience at RASTAPAD. Experience in developing and optimizing scalable APIs, designing software architectures, and managing relational databases. Interested in implementing efficient and secure solutions for web-based systems.",
+      "Salar is an energetic and adaptable software engineer and web developer who is always eager to explore new technologies and continuously grow. He has proven expertise in building professional and scalable Web APIs, optimizing database performance, and managing complete back-end systems.In 2025, he was recognized as one of the top software developers in Alborz Province, highlighting his strong commitment and advanced skills in software development.",
 
   avatarUrl: "salar.jpg",
   skills: [
@@ -54,16 +54,28 @@ export const DATA = {
 
      work: [
     {
-      company: "RASTAPAD( کرج(",
-      href: "#",
+      company: "RASTAPAD",
+      href: "https://rastapad.com/",
       badges: [],
       location: "",
       title: "Backend Developer , Algorithm Programmer",
-      logoUrl: "",
+      logoUrl: "public/rastapad logo_11zon.png",
+      start: "2023",
+      end: "2024",
+      description:
+        "Experienced in developing and maintaining scalable APIs, with a strong focus on optimizing algorithms to enhance performance. Skilled in designing databases and managing complex data structures while ensuring efficiency and reliability. Proven ability to collaborate effectively with cross-functional teams to achieve project goals, as well as troubleshooting and debugging existing code to maintain high-quality software solutions."
+    },
+    {
+      company: "ECode TM",
+      href: "https://www.linkedin.com/company/ecode-team/",
+      badges: [],
+      location: "",
+      title: "Backend Developer , Web Api Dev",
+      logoUrl: "public/ECode TM.jpg",
       start: "2024",
       end: "",
       description:
-        "توسعه و نگهداری API های مقیاسپذیر بهینهسازی الگوریتمها برای افزایش کارایی طراحی پایگاهداده و مدیریت دادههای پیچیده همکاری با تیمهای چندرشتهای برای تحقق اهداف عیبیابی و رفع اشکال کدهای موجود"
+        "As a  back-end developer, I take full responsibility for managing the back-end architecture, database design, and Web API development within the team. My role involves ensuring system scalability, data integrity, and performance optimization, while also guiding the team in implementing best practices for clean and efficient code. I lead the design and maintenance of robust APIs and databases, enabling seamless integration and supporting the overall success of the product."
     },
   ],
   education: [

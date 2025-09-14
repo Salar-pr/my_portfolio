@@ -34,22 +34,7 @@ import { DATA } from "@/data/resume";
 import Link from "next/link";
 import Markdown from "react-markdown";
 
-// Image imports (these are StaticImageData objects)
-import plastic1 from "./blog/plastic1.png";
-import plastic2 from "./blog/plastic2.png";
-import nvim1 from "./blog/nvim1.png";
-import nvim2 from "./blog/nvim2.png";
-import python1 from "./blog/python_tel_bot1.png";
-import python2 from "./blog/python_tel_bot2.png";
-import python3 from "./blog/python_tel_bot3.png";
-import python4 from "./blog/python_tel_bot4.png";
-import eco1 from "./blog/eco1.png";
-import eco2 from "./blog/eco2.png";
-import eco3 from "./blog/eco3.png";
-import eco4 from "./blog/eco4.png";
-import eco5 from "./blog/eco5.png";
-import eco6 from "./blog/eco6.png";
-import ifi_web from "./blog/more.png";
+
 
 const BLUR_FADE_DELAY = 0.04;
 
@@ -372,31 +357,23 @@ export default function Page() {
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-2 max-w-5xl mx-auto">
             <ProjectCard
               delay={BLUR_FADE_DELAY * 12}
-              title="یوتوب"
-              description="A scalable video platform inspired by YouTube, built with Django and DRF, featuring video uploads, advanced search, user authentication, and a RESTful API. 📹🌐"
-              tags={["Django", "DRF", "Python", "REST API"]}
-              link="https://youtube-three-pearl.vercel.app"
+              title="Bot Maker"
+              description="BotMaker is a powerful platform that lets you design and launch Telegram bots with zero coding knowledge. Whether you need a bot for business, automation, or fun – BotMaker makes it as simple as drag, drop, and deploy."
+              tags={[ "Python","OOP","Linux" ]}
+              link="https://github.com/Salar-pr/BotMaker-"
               linkText="View Project"
               imageUrls={[]} // You can add images like [plastic1, plastic2] if desired
               fullDescription={`
 **Period**: January 2024 - April 2024
 
-The <AuroraText>YouTube</AuroraText> project is a video platform developed using Django Rest Framework (DRF) and Django. Inspired by YouTube, it implements its core features. The goal is to create an online video management system with modern, scalable, and optimized features.
+The <AuroraText>BotMaker</AuroraText> a powerful platform that lets you design and launch Telegram bots with zero coding knowledge. Whether you need a bot for business, automation, or fun – BotMaker makes it as simple as drag, drop, and deploy.
 
 **Key Features of the Project**:
-- **Video Upload and Management** 📹: Upload, categorize, and manage videos with support for various formats.
-- **Authentication and User Management** 🔒: Registration, login, user profile management, and access level control.
-- **Advanced Search and Filtering** 🔍: Search and filter videos by title, category, and publication date.
-- **Like, Dislike, and Comments System** 💬: User interaction with videos through likes, dislikes, and comments.
-- **Video Playback with Multiple Qualities** 🎥: Support for multiple playback qualities for a better user experience.
-- **DRF-Based API** 🌐: Provides a RESTful API for front-end and back-end communication.
-- **Optimization and Security** 🛡️: Uses JWT Authentication for session management, access control, and video protection.
-
-**Technologies Used**:
-- **Backend**: Django, Django Rest Framework (DRF), Celery, Redis
-- **Frontend**: React or Vue.js (if needed)
-- **Database**: PostgreSQL, MySQL
-- **Deployment**: Docker, Nginx, Gunicorn
+-📦 No-Code Bot Creation – Build bots with a simple interface\n
+-⚡ Instant Deployment – Go live on Telegram in seconds\n
+-🎨 Customizable – Add buttons, menus, and responses easily\n
+-🛠️ Multi-Function Support – From auto-replies to advanced workflows\n
+-🌍 Cross-Platform – Works anywhere, anytime\n
               `}
             />
             <ProjectCard
@@ -464,6 +441,18 @@ All were developed in the best way using Django and various Python libraries to 
                   className="inline-flex h-12 items-center justify-center rounded-xl bg-gradient-to-r from-green-500 to-teal-500 px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-400"
                 >
                   Call: 09027142836 📞
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/salar-rez"
+                  className="inline-flex h-12 items-center justify-center rounded-xl bg-gradient-to-r from-blue-500 to-teal-500 px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-400"
+                >
+                  LinkedIn : Salar Rezaie 🖇
+                </a>
+                <a
+                  href="https://github.com/Salar-pr"
+                  className="inline-flex h-12 items-center justify-center rounded-xl bg-gradient-to-r from-gray-500 to-teal-500 px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-400"
+                >
+                  GitHub : Salar_pr 💻
                 </a>
               </p>
             </div>
