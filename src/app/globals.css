@@ -229,4 +229,17 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
     transform: rotate(-5deg) scale(0.9);
         }
     }
+
+  @keyframes spotlight {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .animate-spotlight {
+    animation: spotlight 2s ease .75s 1 forwards;
+  }
 }

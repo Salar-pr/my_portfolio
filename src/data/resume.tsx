@@ -19,7 +19,11 @@ export const DATA = {
     "DRF",
     "SQL",
     "Web API",
-    "Web",
+    "Dackend Development",
+    "Js",
+    "Type Script",
+    "Express",
+    "AI",
   ],
   navbar: [
     { href: "/", icon: HomeIcon, label: "Home" },

@@ -2,10 +2,9 @@
 
 import Image, { StaticImageData } from "next/image";
 import { FlickeringGrid } from "@/components/magicui/flickering-grid";
-import { AnimatedCircularProgressBar } from "@/components/magicui/animated-circular-progress-bar";
 import { AuroraText } from "@/components/magicui/aurora-text";
 import { DotPattern } from "@/components/magicui/dot-pattern";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { VelocityScroll } from "@/components/magicui/scroll-based-velocity";
 import { AnimatedList } from "@/components/magicui/animated-list";
 import { SparklesText } from "@/components/magicui/sparkles-text";
@@ -33,7 +32,8 @@ import {
 import { DATA } from "@/data/resume";
 import Link from "next/link";
 import Markdown from "react-markdown";
-
+import { SplineSceneBasic } from "@/components/ui/spline-scene-basic";
+import { motion } from "framer-motion";
 
 
 const BLUR_FADE_DELAY = 0.04;
@@ -92,7 +92,7 @@ function ProjectCard({ delay, title, description, tags, link, linkText, imageUrl
         }}
       >
         <DrawerTrigger className="text-left w-full">
-          <div className="border rounded-lg p-4 hover:shadow-md transition-shadow h-full flex flex-col">
+          <div className="border border-border rounded-lg p-4 hover:shadow-md transition-shadow h-full flex flex-col group">
             {isLoading ? (
               <div className="space-y-2 flex-grow">
                 <Skeleton className="h-[125px] w-full rounded-lg mb-3" />
@@ -107,21 +107,21 @@ function ProjectCard({ delay, title, description, tags, link, linkText, imageUrl
             ) : (
               <>
                 {imageUrls[0] && (
-                  <div className="relative w-full h-[125px] mb-3">
+                  <div className="relative w-full h-[125px] mb-3 overflow-hidden rounded-lg">
                     <Image
                       src={imageUrls[0]}
                       alt={`${title} preview`}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="rounded-lg object-cover"
+                      className="rounded-lg object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
                 )}
-                <h3 className="font-semibold"><AuroraText>{title}</AuroraText></h3>
-                <p className="text-sm text-muted-foreground flex-grow">{description}</p>
-                <div className="mt-2 flex flex-wrap gap-1">
+                <h3 className="font-semibold text-lg"><AuroraText>{title}</AuroraText></h3>
+                <p className="text-sm text-muted-foreground flex-grow line-clamp-3">{description}</p>
+                <div className="mt-3 flex flex-wrap justify-center gap-2">
                   {tags.map((tag, index) => (
-                    <Badge key={index}>{tag}</Badge>
+                    <Badge key={index} className="px-2 py-1 text-[10px]">{tag}</Badge>
                   ))}
                 </div>
               </>
@@ -188,32 +188,12 @@ function ProjectCard({ delay, title, description, tags, link, linkText, imageUrl
 
 export default function Page() {
   return (
-    <main className="flex flex-col min-h-[100dvh] space-y-10 px-4 md:px-8 lg:px-12 py-8">
-      {/* Hero Section */}
+    <main className="flex flex-col min-h-[100dvh] space-y-16 px-4 md:px-8 lg:px-12 py-8 max-w-7xl mx-auto">
+      {/* Hero Section with 3D Spline */}
       <section id="hero" className="w-full">
-        <div className="mx-auto w-full max-w-2xl space-y-8">
-          <div className="gap-2 flex justify-between items-start">
-            <div className="flex-col flex flex-1 space-y-1.5">
-              <BlurFadeText
-                delay={BLUR_FADE_DELAY}
-                className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none"
-                yOffset={8}
-                text={`Hi, I'm ${DATA.name.split(" ")[0]} 👋`}
-              />
-              <BlurFadeText
-                className="max-w-[600px] md:text-xl"
-                delay={BLUR_FADE_DELAY}
-                text={DATA.description}
-              />
-            </div>
-            <BlurFade delay={BLUR_FADE_DELAY}>
-              <Avatar className="size-24 sm:size-28 border">
-                <AvatarImage alt={DATA.name} src={DATA.avatarUrl} />
-                <AvatarFallback>{DATA.initials}</AvatarFallback>
-              </Avatar>
-            </BlurFade>
-          </div>
-        </div>
+        <BlurFade delay={BLUR_FADE_DELAY}>
+          <SplineSceneBasic />
+        </BlurFade>
       </section>
 
       {/* About Section */}
@@ -221,7 +201,9 @@ export default function Page() {
         <BlurFade delay={BLUR_FADE_DELAY * 3}>
           <SparklesText className="text-2xl sm:text-3xl font-semibold mb-4"><AuroraText>About</AuroraText></SparklesText>
         </BlurFade>
-        <BlurFade delay={BLUR_FADE_DELAY * 4}>
+        
+           
+        <BlurFade delay={BLUR_FADE_DELAY * 5}>
           <Markdown className="prose max-w-full text-pretty font-sans text-sm sm:text-base text-muted-foreground dark:prose-invert">
             {DATA.summary}
           </Markdown>
@@ -249,103 +231,32 @@ export default function Page() {
             </BlurFade>
           ))}
         </div>
-      </section>
 
-      {/* Skills Section */}
-      <section id="skills">
-        <div className="flex min-h-0 flex-col gap-y-3">
+        {/* Skills Section - Simplified (no levels) */}
+        <div id="skills" className="mt-8 flex min-h-0 flex-col gap-y-3">
           <BlurFade delay={BLUR_FADE_DELAY * 9}>
             <h2 className="text-xl font-bold"><AuroraText>Skills</AuroraText></h2>
           </BlurFade>
-          <div className="flex flex-wrap gap-1">
+          <div className="flex flex-wrap gap-2">
             {DATA.skills.map((skill, id) => (
               <BlurFade key={skill} delay={BLUR_FADE_DELAY * 10 + id * 0.05}>
-                <Badge key={skill}>{skill}</Badge>
+                <Badge 
+                  key={skill} 
+                  className="px-4 py-1.5 text-sm transition-all hover:scale-105 hover:bg-primary hover:text-primary-foreground cursor-default"
+                >
+                  {skill}
+                </Badge>
               </BlurFade>
             ))}
-          </div>
-          <div className="grid grid-cols-2 gap-4 mt-4 sm:grid-cols-3">
-            <BlurFade delay={BLUR_FADE_DELAY * 10}>
-              <div className="flex flex-col items-center">
-                <AnimatedCircularProgressBar
-                  min={0} // Added min prop
-                  max={100}
-                  value={80}
-                  gaugePrimaryColor="rgb(79, 70, 229)"
-                  gaugeSecondaryColor="rgba(79, 70, 229, 0.2)"
-                />
-                <p className="mt-2 text-sm font-medium">Python Programming</p>
-              </div>
-            </BlurFade>
-            <BlurFade delay={BLUR_FADE_DELAY * 10.1}>
-              <div className="flex flex-col items-center">
-                <AnimatedCircularProgressBar
-                  min={0} // Added min prop
-                  max={100}
-                  value={100}
-                  gaugePrimaryColor="rgb(79, 70, 229)"
-                  gaugeSecondaryColor="rgba(79, 70, 229, 0.2)"
-                />
-                <p className="mt-2 text-sm font-medium">Django Web Framework</p>
-              </div>
-            </BlurFade>
-            <BlurFade delay={BLUR_FADE_DELAY * 10.2}>
-              <div className="flex flex-col items-center">
-                <AnimatedCircularProgressBar
-                  min={0} // Added min prop
-                  max={100}
-                  value={80}
-                  gaugePrimaryColor="rgb(79, 70, 229)"
-                  gaugeSecondaryColor="rgba(79, 70, 229, 0.2)"
-                />
-                <p className="mt-2 text-sm font-medium">Django REST Framework</p>
-              </div>
-            </BlurFade>
-            <BlurFade delay={BLUR_FADE_DELAY * 10.3}>
-              <div className="flex flex-col items-center">
-                <AnimatedCircularProgressBar
-                  min={0} // Added min prop
-                  max={100}
-                  value={65}
-                  gaugePrimaryColor="rgb(79, 70, 229)"
-                  gaugeSecondaryColor="rgba(79, 70, 229, 0.2)"
-                />
-                <p className="mt-2 text-sm font-medium">SQL Database</p>
-              </div>
-            </BlurFade>
-            <BlurFade delay={BLUR_FADE_DELAY * 10.4}>
-              <div className="flex flex-col items-center">
-                <AnimatedCircularProgressBar
-                  min={0} // Added min prop
-                  max={100}
-                  value={85}
-                  gaugePrimaryColor="rgb(79, 70, 229)"
-                  gaugeSecondaryColor="rgba(79, 70, 229, 0.2)"
-                />
-                <p className="mt-2 text-sm font-medium">Web API</p>
-              </div>
-            </BlurFade>
-            <BlurFade delay={BLUR_FADE_DELAY * 10.5}>
-              <div className="flex flex-col items-center">
-                <AnimatedCircularProgressBar
-                  min={0} // Added min prop
-                  max={100}
-                  value={100}
-                  gaugePrimaryColor="rgb(79, 70, 229)"
-                  gaugeSecondaryColor="rgba(79, 70, 229, 0.2)"
-                />
-                <p className="mt-2 text-sm font-medium">Web</p>
-              </div>
-            </BlurFade>
           </div>
         </div>
       </section>
 
       {/* Projects Section */}
       <section id="projects" className="w-full">
-        <div className="space-y-12 w-full py-12">
+        <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-center space-y-12 py-12 px-4 sm:px-6">
           <BlurFade delay={BLUR_FADE_DELAY * 11}>
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
+            <div className="flex flex-col items-center justify-center space-y-4 text-center max-w-3xl">
               <div className="space-y-2">
                 <div className="inline-block rounded-lg bg-foreground text-background px-3 py-1 text-sm">
                   <AuroraText>My Projects</AuroraText>
@@ -354,7 +265,7 @@ export default function Page() {
               </div>
             </div>
           </BlurFade>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-2 max-w-5xl mx-auto">
+          <div className="grid w-full max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2 auto-rows-fr justify-items-center">
             <ProjectCard
               delay={BLUR_FADE_DELAY * 12}
               title="Bot Maker"
@@ -362,48 +273,42 @@ export default function Page() {
               tags={[ "Python","OOP","Linux" ]}
               link="https://github.com/Salar-pr/BotMaker-"
               linkText="View Project"
-              imageUrls={[]} // You can add images like [plastic1, plastic2] if desired
+              imageUrls={[]}
               fullDescription={`
 **Period**: January 2024 - April 2024
 
 The <AuroraText>BotMaker</AuroraText> a powerful platform that lets you design and launch Telegram bots with zero coding knowledge. Whether you need a bot for business, automation, or fun – BotMaker makes it as simple as drag, drop, and deploy.
 
 **Key Features of the Project**:
--📦 No-Code Bot Creation – Build bots with a simple interface\n
--⚡ Instant Deployment – Go live on Telegram in seconds\n
--🎨 Customizable – Add buttons, menus, and responses easily\n
--🛠️ Multi-Function Support – From auto-replies to advanced workflows\n
--🌍 Cross-Platform – Works anywhere, anytime\n
+-📦 No-Code Bot Creation – Build bots with a simple interface
+-⚡ Instant Deployment – Go live on Telegram in seconds
+-🎨 Customizable – Add buttons, menus, and responses easily
+-🛠️ Multi-Function Support – From auto-replies to advanced workflows
+-🌍 Cross-Platform – Works anywhere, anytime
               `}
             />
             <ProjectCard
               delay={BLUR_FADE_DELAY * 12.05}
-              title="مارکت شاپ"
-              description="A professional e-commerce platform built with Django and Python, featuring a scalable architecture, advanced authentication, fast search, and a modern responsive design. 🛒✨"
-              tags={["Django", "Python", "Jalali Date", "E-commerce"]}
-              link="#"
-              linkText="View Details"
-              imageUrls={[]} // You can add images like [eco1, eco2, eco3] if desired
+              title="hash_project"
+              description="A modern Persian web platform built with Django, Django REST Framework, Next.js, and JWT authentication. It features custom scrypt+pepper+HMAC security, admin approval workflows, and a responsive RTL dashboard."
+              tags={["Django", "Next.js", "Python", "JWT", "RTL"]}
+              link="https://github.com/Salar-pr/hash_project-main"
+              linkText="View Repository"
+              imageUrls={[]}
               fullDescription={`
 **Period**: September 2023 - November 2023
 
-This project was designed and implemented using Django as the main framework and Python as the programming language. 🐍
+this is a full-stack web platform built with Django + Django REST Framework on the backend and Next.js + React on the frontend. It preserves a custom security model using original scrypt + pepper + salt + HMAC hashing.
 
-**Key Features of the Project**:
-- **Scalable and Optimized Architecture** 🚀: Built for performance and growth.
-- **Advanced Authentication System** 🔒: Secure user login and access control.
-- **Fast Search and Data Filtering** 🔍: Quick and efficient product search.
-- **Modern and Responsive Design** 📱: Enhanced user experience across devices.
-- **Jalali Date Support** 📅: Tailored for regional user needs.
+**Key Features**:
+- **Secure Authentication** 🔒: JWT access/refresh tokens + DRF TokenAuthentication
+- **Custom Password Security** 🛡️: Original scrypt + pepper + salt + HMAC-SHA256 verification
+- **Approval Workflow** ✅: Users require admin approval before accessing the system
+- **Employee Dashboard** 📋: Attendance, schedules, tasks, weekly reports, and calendar events
+- **Admin Panel** ⚙️: Separate business admin area for user approval, attendance, schedule, task, and event management
+- **Persian RTL UX** 🌙: Responsive RTL interface designed for modern web and mobile devices
 
-Despite the extensive scope of the project, including:
-- **Product Categorization and Upload** 🛍️: Easy product management.
-- **Account Management and Registration** 👤: Seamless user onboarding.
-- **Fast Search and Navigation** ⚡: Quick access to products.
-- **Advanced Security and Access Management** 🛡️: Robust protection mechanisms.
-- And many other features 🌟
-
-All were developed in the best way using Django and various Python libraries to create a professional e-commerce website.
+The project demonstrates a clean separation between backend REST APIs and a premium Next.js frontend while preserving original security logic from the source application.
               `}
             />
           </div>
